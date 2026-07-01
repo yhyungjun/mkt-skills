@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html{overflow-y:scroll}
+::-webkit-scrollbar{width:12px;height:12px;-webkit-appearance:none}
+::-webkit-scrollbar-track{background:rgba(255,255,255,.06)}
+::-webkit-scrollbar-thumb{background:rgba(255,255,255,.28);border-radius:6px;border:3px solid transparent;background-clip:padding-box}
+::-webkit-scrollbar-thumb:hover{background:rgba(255,255,255,.45);background-clip:padding-box}
+:root{--bg:#1b1b1b;--sidebar-bg:#1b1b1b;--surface:#262626;--surface2:#303030;--border:#333;--border2:#2a2a2a;--text:#ececec;--text-sec:#9a9a9a;--text-dim:#555;--accent:#d4875e;--danger:#ef4444;--success:#3fb950;--blue:#58a6ff;--radius:8px}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;padding:0;overflow:hidden;font-size:13px;height:100vh;display:flex}
+.sb{width:230px;background:var(--sidebar-bg);border-right:1px solid var(--border);display:flex;flex-direction:column;flex-shrink:0}
+.sb-head{padding:10px 12px 0;display:flex;align-items:center;gap:8px}
+.sb-head .icons{display:flex;gap:6px}
+.sb-head .icons span{width:12px;height:12px;border-radius:50%;display:block}
+.sb-head .icons .r{background:#ff5f57}.sb-head .icons .y{background:#febc2e}.sb-head .icons .g{background:#28c840}
+.sb-tabs{display:flex;background:var(--surface);border-radius:8px;padding:3px;margin:12px 12px 8px}
+.sb-tabs button{flex:1;padding:5px 0;border:none;background:none;color:var(--text-sec);font-size:11px;border-radius:6px;cursor:pointer;font-weight:500}
+.sb-tabs button.active{background:var(--surface2);color:var(--text)}
+.sb-new{display:flex;align-items:center;gap:6px;padding:7px 14px;color:var(--blue);font-size:12px;font-weight:500}
+.sb-new::before{content:"+";font-weight:600}
+.sb-menu{padding:4px 14px;font-size:12px;color:var(--text-sec);display:flex;align-items:center;gap:6px}
+.sb-sec{padding:8px 14px 4px;font-size:11px;color:var(--text-dim);font-weight:500}
+.sb-item{padding:5px 14px;font-size:12px;color:var(--text-sec);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:flex;align-items:center;gap:8px}
+.sb-item .dot{width:6px;height:6px;border-radius:50%;background:var(--text-dim);flex-shrink:0}
+.sb-item.active{color:var(--text)}
+.sb-item.active .dot{background:var(--blue)}
+.sb-bottom{margin-top:auto}
+.sb-user{padding:10px 14px;border-top:1px solid var(--border);display:flex;align-items:center;gap:8px;font-size:12px;color:var(--text-sec)}
+.sb-user .avatar{width:20px;height:20px;background:var(--surface2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px}
+.main{flex:1;display:flex;flex-direction:column;overflow:hidden;background:var(--bg)}
+.topbar{padding:8px 20px;font-size:12px;color:var(--text-sec);display:flex;align-items:center;gap:6px;border-bottom:1px solid var(--border2)}
+.chat{flex:1;overflow-y:auto;padding:16px 20px 16px 20px}
+.u-msg{text-align:right;margin-bottom:20px;font-size:13px;color:var(--text);padding-right:4px}
+.a-msg{margin-bottom:20px;font-size:13px;color:var(--text);line-height:1.7}
+.a-msg p{margin-bottom:8px}
+.a-msg strong{font-weight:600}
+.tool-toggle{background:var(--surface);border:1px solid var(--border);border-radius:6px;margin:8px 0;overflow:hidden}
+.tool-toggle summary{padding:8px 12px;font-size:12px;color:var(--text-sec);cursor:pointer;list-style:none;display:flex;align-items:center;gap:6px;user-select:none}
+.tool-toggle summary::before{content:"▸";font-size:10px;color:var(--text-dim);transition:transform .15s}
+.tool-toggle[open] summary::before{transform:rotate(90deg)}
+.tool-toggle summary .check{color:var(--success);font-size:13px}
+.tool-toggle .t-body{padding:10px 12px;border-top:1px solid var(--border);font-size:12px}
+.data-row{display:flex;justify-content:space-between;padding:4px 0;font-size:12px;border-bottom:1px solid var(--border)}
+.data-row:last-child{border:none}
+.data-row .k{color:var(--text-sec)}
+.data-row .v{font-weight:600}
+.hl{color:var(--accent);font-weight:600}
+.hl-green{color:var(--success);font-weight:600}
+.hl-danger{color:var(--danger);font-weight:600}
+.json-block{background:var(--bg);border-radius:6px;padding:10px;font-family:'SF Mono',Monaco,monospace;font-size:11px;color:var(--text-sec);line-height:1.5;margin:6px 0;overflow-x:auto}
+.json-key{color:var(--blue)}.json-str{color:var(--success)}.json-num{color:var(--accent)}
+.tbl{width:100%;border-collapse:collapse;font-size:11px;margin:6px 0}
+.tbl th{text-align:left;padding:5px 8px;border-bottom:1px solid var(--border);color:var(--text-dim);font-weight:600}
+.tbl td{padding:5px 8px;border-bottom:1px solid var(--border2)}
+.tbl .right{text-align:right}
+.badge{display:inline-block;padding:1px 6px;border-radius:3px;font-size:10px;font-weight:700}
+.badge.ok{background:rgba(63,185,80,.12);color:var(--success)}
+.badge.warn{background:rgba(244,162,97,.15);color:#f4a261}
+.badge.danger{background:rgba(239,68,68,.12);color:var(--danger)}
+.ch-tag{font-size:10px;padding:1px 6px;border-radius:3px;font-weight:600}
+.ch-tag.naver{background:rgba(29,177,119,.12);color:#1db177}
+.ch-tag.coupang{background:rgba(240,80,20,.12);color:#f05014}
+.input-area{padding:8px 20px 12px}
+.input-wrap{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:10px 14px;display:flex;align-items:center}
+.input-wrap input{flex:1;background:none;border:none;color:var(--text);font-size:13px;outline:none}
+.input-wrap input::placeholder{color:var(--text-dim)}
+.input-wrap .send{background:none;border:none;color:var(--text-dim);cursor:pointer;font-size:14px;padding:0 2px}
+.input-bot{display:flex;align-items:center;gap:8px;margin-top:6px;padding:0 2px;font-size:11px;color:var(--text-dim)}
+.input-bot .skip{color:var(--success);font-weight:600;font-size:11px;border:1px solid rgba(63,185,80,.3);padding:1px 8px;border-radius:4px}
+.input-bot .model-tag{margin-left:auto;display:flex;align-items:center;gap:4px;color:var(--text-sec)}
+.input-bot .dot{width:7px;height:7px;border-radius:50%;background:var(--success);display:inline-block}
+@media(max-width:600px){.sb{display:none}.chat{padding:12px 14px}.input-area{padding:8px 14px 10px}}
+</style>
+</head>
+<body>
+
+<div class="sb">
+  <div class="sb-head">
+    <div class="icons"><span class="r"></span><span class="y"></span><span class="g"></span></div>
+  </div>
+  <div class="sb-tabs">
+    <button>Chat</button>
+    <button>Cowork</button>
+    <button class="active">Code</button>
+  </div>
+  <div class="sb-new">New session</div>
+  <div class="sb-menu">Routines</div>
+  <div class="sb-menu">Customize</div>
+  <div class="sb-sec">Pinned</div>
+  <div class="sb-item active"><span class="dot"></span>OS 데이터 레이어 구축</div>
+  <div class="sb-sec">Recents</div>
+  <div class="sb-item"><span class="dot"></span>그랜터 MCP 연결</div>
+  <div class="sb-item"><span class="dot"></span>채널 API 연동</div>
+  <div class="sb-item"><span class="dot"></span>상품별 매출 조회</div>
+  <div class="sb-item"><span class="dot"></span>재고 현황 확인</div>
+  <div class="sb-item"><span class="dot"></span>순이익 계산</div>
+  <div class="sb-bottom">
+    <div class="sb-user"><span class="avatar">👤</span>셀러 · Max</div>
+  </div>
+</div>
+
+<div class="main">
+<div class="topbar">📁 os-data / OS 데이터 레이어 구축 ▾</div>
+<div class="chat">
+
+<div class="u-msg">쿠팡 채널 API 연동해줘</div>
+
+<div class="a-msg">
+  그랜터 MCP로 쿠팡 채널 데이터를 연결합니다.
+  <details class="tool-toggle" open>
+    <summary><span class="check">✓</span> granter-mcp channel-connect 완료</summary>
+    <div class="t-body">
+      <div class="data-row"><span class="k">채널</span><span class="v"><span class="ch-tag coupang">쿠팡</span></span></div>
+      <div class="data-row"><span class="k">연동 상태</span><span class="hl-green">✓ 연결 성공</span></div>
+      <div class="data-row"><span class="k">상품 수</span><span class="v">12개</span></div>
+      <div class="data-row"><span class="k">데이터 범위</span><span class="v">2026-05-01 ~ 05-31</span></div>
+      <div style="margin-top:8px;font-size:11px;color:var(--text-dim)">API 응답 구조 (JSON):</div>
+      <div class="json-block">
+{<br>
+&nbsp;&nbsp;<span class="json-key">"channel"</span>: <span class="json-str">"coupang"</span>,<br>
+&nbsp;&nbsp;<span class="json-key">"products"</span>: <span class="json-num">12</span>,<br>
+&nbsp;&nbsp;<span class="json-key">"fields"</span>: [<span class="json-str">"revenue"</span>, <span class="json-str">"cost"</span>, <span class="json-str">"fee"</span>, <span class="json-str">"stock"</span>]<br>
+}
+      </div>
+    </div>
+  </details>
+  <p>쿠팡 채널 연동 완료. 네이버도 연동할까요?</p>
+</div>
+
+<div class="u-msg">네이버도 연동하고, 이번 달 상품별 순이익 보여줘</div>
+
+<div class="a-msg">
+  네이버 채널 연동 후 상품별 순이익을 조회합니다.
+  <details class="tool-toggle" open>
+    <summary><span class="check">✓</span> granter-mcp channel-connect — 네이버 연동 완료</summary>
+    <div class="t-body">
+      <div class="data-row"><span class="k">채널</span><span class="v"><span class="ch-tag naver">네이버</span></span></div>
+      <div class="data-row"><span class="k">연동 상태</span><span class="hl-green">✓ 연결 성공</span></div>
+      <div class="data-row"><span class="k">상품 수</span><span class="v">8개</span></div>
+    </div>
+  </details>
+  <details class="tool-toggle" open>
+    <summary><span class="check">✓</span> granter query — 상품별 순이익 조회 완료</summary>
+    <div class="t-body">
+      <div class="data-row"><span class="k">이번 달 총 매출</span><span class="hl">₩30,500,000</span></div>
+      <div class="data-row"><span class="k">총 순이익</span><span class="hl">₩14,960,000</span></div>
+      <div class="data-row"><span class="k">평균 마진율</span><span class="v">49.1%</span></div>
+      <table class="tbl">
+        <tr><th>상품</th><th>채널</th><th class="right">매출</th><th class="right">원가</th><th class="right">수수료</th><th class="right">순이익</th></tr>
+        <tr><td>프리미엄 견과 선물세트</td><td><span class="ch-tag naver">네이버</span></td><td class="right">520만</td><td class="right">208만</td><td class="right">52만</td><td class="right hl">260만</td></tr>
+        <tr><td>프로틴바 12개입</td><td><span class="ch-tag coupang">쿠팡</span></td><td class="right">460만</td><td class="right">230만</td><td class="right">51만</td><td class="right hl">179만</td></tr>
+        <tr><td>유기농 그래놀라 500g</td><td><span class="ch-tag naver">네이버</span></td><td class="right">380만</td><td class="right">114만</td><td class="right">38만</td><td class="right hl">228만</td></tr>
+        <tr><td>콜드브루 원액 1L</td><td><span class="ch-tag coupang">쿠팡</span></td><td class="right">340만</td><td class="right">136만</td><td class="right">37만</td><td class="right hl">167만</td></tr>
+        <tr><td>다이어트 쉐이크 750g</td><td><span class="ch-tag coupang">쿠팡</span></td><td class="right">390만</td><td class="right">195만</td><td class="right">43만</td><td class="right">152만</td></tr>
+      </table>
+      <div style="margin-top:6px;font-size:11px;color:var(--text-dim)">순이익 = 매출 − 원가 − 수수료 (광고비 제외)</div>
+    </div>
+  </details>
+</div>
+
+<div class="u-msg">재고 소진 임박 상품 있어?</div>
+
+<div class="a-msg">
+  재고 현황을 조회합니다.
+  <details class="tool-toggle" open>
+    <summary><span class="check">✓</span> granter query — 재고 위험 상품 3건</summary>
+    <div class="t-body">
+      <table class="tbl">
+        <tr><th>상품</th><th>채널</th><th class="right">재고</th><th class="right">일 판매량</th><th class="right">소진 예상</th><th>상태</th></tr>
+        <tr><td>다이어트 쉐이크 750g</td><td><span class="ch-tag coupang">쿠팡</span></td><td class="right">5개</td><td class="right">3개/일</td><td class="right hl-danger">1.7일</td><td><span class="badge danger">긴급</span></td></tr>
+        <tr><td>프로틴바 12개입</td><td><span class="ch-tag coupang">쿠팡</span></td><td class="right">8개</td><td class="right">5개/일</td><td class="right hl-danger">1.6일</td><td><span class="badge danger">긴급</span></td></tr>
+        <tr><td>콜드브루 원액 1L</td><td><span class="ch-tag coupang">쿠팡</span></td><td class="right">15개</td><td class="right">4개/일</td><td class="right" style="color:#f4a261">3.8일</td><td><span class="badge warn">주의</span></td></tr>
+      </table>
+      <div style="margin-top:8px;padding-top:8px;border-top:1px solid var(--border);font-size:12px;color:var(--danger)">⚠ 쿠팡 상품 2건 내일 품절 예상 — 긴급 발주 권장</div>
+    </div>
+  </details>
+</div>
+
+</div>
+
+<div class="input-area">
+  <div class="input-wrap">
+    <input type="text" placeholder="명령어를 입력하려면 / 입력" readonly>
+    <button class="send">↵</button>
+  </div>
+  <div class="input-bot">
+    <span class="skip">권한 건너뛰기</span>
+    <span>+</span>
+    <span>🎙</span>
+    <span class="model-tag">Opus 4.8 · Max <span class="dot"></span></span>
+  </div>
+</div>
+</div>
+
+</body>
+</html>

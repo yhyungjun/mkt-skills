@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html{overflow-y:scroll}
+::-webkit-scrollbar{width:12px;height:12px;-webkit-appearance:none}
+::-webkit-scrollbar-track{background:rgba(0,0,0,.06)}
+::-webkit-scrollbar-thumb{background:rgba(0,0,0,.28);border-radius:6px;border:3px solid transparent;background-clip:padding-box}
+::-webkit-scrollbar-thumb:hover{background:rgba(0,0,0,.45);background-clip:padding-box}
+:root{--primary:#4361ee;--danger:#e63946;--success:#2a9d8f;--bg:#f4f5f7;--card:#fff;--text:#1a1a2e;--text-sec:#6c757d;--border:#e2e5ea;--shadow:0 2px 8px rgba(0,0,0,.06);--radius:12px;--signal:#c85a2a}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.5;padding:0;overflow-y:auto}
+.header{background:var(--card);border-bottom:1px solid var(--border);padding:12px 16px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10}
+.header h1{font-size:14px;font-weight:700}
+.active-badge{background:var(--success);color:#fff;font-size:10px;padding:3px 10px;border-radius:8px;font-weight:700;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.7}}
+.content{padding:16px}
+.status-bar{background:linear-gradient(135deg,#1a1a2e,#2a2a4e);border-radius:var(--radius);padding:20px;margin-bottom:16px;color:#fff;display:flex;align-items:center;justify-content:space-between}
+.status-bar .left{display:flex;flex-direction:column;gap:4px}
+.status-bar .title{font-size:16px;font-weight:800}
+.status-bar .sub{font-size:11px;color:#a0a4b8}
+.status-bar .star{font-size:28px}
+.cards{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:16px}
+.s-card{background:var(--card);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow)}
+.s-card .label{font-size:11px;color:var(--text-sec);margin-bottom:4px}
+.s-card .value{font-size:22px;font-weight:800;letter-spacing:-.5px}
+.s-card .change{font-size:11px;margin-top:4px;font-weight:600}
+.s-card .change.up{color:var(--success)}
+.checklist{background:var(--card);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow);margin-bottom:16px}
+.checklist h3{font-size:12px;font-weight:700;margin-bottom:12px}
+.check-item{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--border);font-size:13px}
+.check-item:last-child{border:none}
+.check-icon{width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0}
+.check-icon.done{background:var(--success);color:#fff}
+.skills{background:var(--card);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow)}
+.skills h3{font-size:12px;font-weight:700;margin-bottom:12px}
+.skill-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.skill-tag{background:#f0f0f5;border-radius:8px;padding:10px;font-size:11px;display:flex;align-items:center;gap:6px}
+.skill-tag .name{font-weight:600}
+.skill-tag .status{margin-left:auto;font-size:10px;color:var(--success);font-weight:600}
+@media(max-width:500px){.cards{grid-template-columns:1fr}.skill-grid{grid-template-columns:1fr}.s-card .value{font-size:18px}.content{padding:12px}.status-bar .title{font-size:14px}.header h1{font-size:12px}}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>MY GRANTER — 본인 워크스페이스</h1>
+  <span class="active-badge">ACTIVE</span>
+</div>
+<div class="content">
+<div class="status-bar">
+  <div class="left">
+    <div class="title">졸업 완료 — 본인 데이터로 OS 작동 중</div>
+    <div class="sub">4주간 세팅한 데이터가 그대로 연결되었습니다</div>
+  </div>
+  <div class="star">🎓</div>
+</div>
+<div class="cards">
+  <div class="s-card">
+    <div class="label">월 매출</div>
+    <div class="value">₩287M</div>
+    <div class="change up">▲ 본인 그랜터 실시간</div>
+  </div>
+  <div class="s-card">
+    <div class="label">가용 자금</div>
+    <div class="value">₩142M</div>
+  </div>
+  <div class="s-card">
+    <div class="label">재고 위험</div>
+    <div class="value" style="color:var(--danger)">3종</div>
+  </div>
+  <div class="s-card">
+    <div class="label">AI 알림</div>
+    <div class="value" style="color:var(--signal)">2건</div>
+  </div>
+</div>
+<div class="checklist">
+  <h3>마이그레이션 체크리스트</h3>
+  <div class="check-item"><span class="check-icon done">✓</span>본인 그랜터 워크스페이스 연결</div>
+  <div class="check-item"><span class="check-icon done">✓</span>채널 API 키 전환 (네이버/쿠팡)</div>
+  <div class="check-item"><span class="check-icon done">✓</span>매출·정산·지출 데이터 이전</div>
+  <div class="check-item"><span class="check-icon done">✓</span>AI 알림 Slack/Email 연동</div>
+  <div class="check-item"><span class="check-icon done">✓</span>임계치 본인 기준으로 재설정</div>
+</div>
+<div class="skills">
+  <h3>활성화된 스킬 (6종)</h3>
+  <div class="skill-grid">
+    <div class="skill-tag"><span>⚖️</span><span class="name">법적 리스크 검토</span><span class="status">활성</span></div>
+    <div class="skill-tag"><span>💬</span><span class="name">리뷰 답글 초안</span><span class="status">활성</span></div>
+    <div class="skill-tag"><span>🔍</span><span class="name">경쟁사 상품 분석</span><span class="status">활성</span></div>
+    <div class="skill-tag"><span>⚡</span><span class="name">본인 자작 스킬</span><span class="status">활성</span></div>
+    <div class="skill-tag"><span>🚨</span><span class="name">AI 위험 알림</span><span class="status">활성</span></div>
+    <div class="skill-tag"><span>🌐</span><span class="name">커뮤니티 심화 스킬</span><span class="status">활성</span></div>
+  </div>
+</div>
+</div>
+</body>
+</html>

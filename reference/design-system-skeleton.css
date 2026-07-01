@@ -1,0 +1,175 @@
+/* =============================================================================
+   DESIGN SYSTEM SKELETON — 브랜드 중립 (강의 랜딩 Phase 2 에셋)
+   granter-landing globals.css의 *구조*만 박제. 색·폰트 "값"은 자리표시(placeholder).
+
+   사용법:
+   1) 이 파일을 새 프로젝트 globals.css에 붙여넣는다(구조 = 그대로 검증된 스캐폴드).
+   2) 맨 위 :root 토큰 "값"만 Phase 2 디자인 프롬프트(design-phase-prompt.md) 결과로 교체.
+      → 변수명/공통클래스/reveal/반응형/접근성은 건드리지 말 것(다 의존하고 있음).
+   3) 폰트 로딩은 아래 [폰트 로딩] 주석대로 layout.tsx에 적용.
+
+   ⚠️ 절대 라이브 granter 레포를 참조하지 말 것. 이 스냅샷이 단일 출처.
+   ============================================================================= */
+
+@import "tailwindcss";
+
+/* ── [폰트 로딩] layout.tsx 패턴 (Tailwind v4 @import 순서 함정 회피) ──────────
+   본문/디스플레이 웹폰트는 <head>의 <link rel="stylesheet">로,
+   모노스페이스는 next/font/google로 변수 주입. globals.css에 @import url(...) 쓰지 말 것.
+
+   // layout.tsx
+   import { IBM_Plex_Mono } from "next/font/google";
+   const mono = IBM_Plex_Mono({ variable:"--font-ibm-plex-mono", subsets:["latin"], weight:["400","500","600"], display:"swap" });
+   <html className={mono.variable}>
+     <head>
+       <link rel="preconnect" href="https://cdn.jsdelivr.net" crossOrigin="" />
+       <link rel="stylesheet" href="<본문폰트 CDN CSS>" />   // 예: Pretendard. 브랜드 폰트로 교체
+     </head>
+   --------------------------------------------------------------------------- */
+
+/* ── DESIGN TOKENS — ⬇️ 여기 "값"만 브랜드에 맞게 교체 (구조·변수명 유지) ── */
+:root {
+  /* 색: Phase 2에서 결정. 아래는 중립 자리표시값(주석은 granter 예시). */
+  --ink: #1A1A1A;            /* 본문/다크배경 (거의 검정)            예: #1A1A1A */
+  --paper: #FAFAF7;          /* 밝은 배경/다크 위 텍스트 (오프화이트)  예: #FAFAF7 */
+  --signal: #2D6CDF;         /* ★ 브랜드 강조색(CTA·포인트) ← 반드시 교체  예: #C84A1F */
+  --signal-text: #2357B8;    /* 강조색 텍스트용 더 진한 톤(대비 확보)   예: #A63A14 */
+  --rule: #E5E5DF;           /* 구분선/테두리                        예: #E5E5DF */
+  --mute: #5A5A55;           /* 보조 텍스트(회색)                    예: #5A5A55 */
+  --nav-dark: var(--ink);    /* 네비 배경 */
+  --nav-ink: var(--paper);   /* 네비 텍스트 */
+
+  /* 폰트: 브랜드 폰트로 교체(없으면 system-ui 폴백 유지) */
+  --font-display: 'Pretendard Variable', 'Pretendard', system-ui, sans-serif;
+  --font-body: 'Pretendard Variable', 'Pretendard', system-ui, sans-serif;
+  --font-mono: var(--font-ibm-plex-mono), ui-monospace, monospace;
+
+  /* 스케일/모션: 보통 그대로 사용(필요 시 조정) */
+  --maxw: 1280px;
+  --gutter: 24px;
+  --pad-x: clamp(1.25rem, 5vw, 5rem);
+  --pad-y: clamp(7.5rem, 16vh, 16rem);
+  --radius: 12px;
+  --radius-sm: 8px;
+  --dur: .6s;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Tailwind v4 토큰 브리지 (유틸리티에서 var 사용) */
+@theme inline {
+  --color-ink: var(--ink);
+  --color-paper: var(--paper);
+  --color-signal: var(--signal);
+  --color-signal-text: var(--signal-text);
+  --color-rule: var(--rule);
+  --color-mute: var(--mute);
+  --font-sans: var(--font-display);
+  --font-mono: var(--font-mono);
+}
+
+/* ── RESET ── */
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 60px; }   /* 60px = 고정 헤더 높이에 맞춰 조정 */
+body {
+  background: #fff; color: var(--ink);
+  font-family: var(--font-body); font-weight: 400; line-height: 1.6; font-size: 17px;
+  word-break: keep-all; overflow-wrap: break-word;            /* 한국어 줄바꿈 */
+}
+h1, h2, h3, p, li, span, div, a { word-break: keep-all; }
+img { max-width: 100%; display: block; }
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--signal); outline-offset: 2px; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+
+/* ── 레이아웃 ── */
+.wrap { max-width: var(--maxw); margin: 0 auto; padding-left: var(--pad-x); padding-right: var(--pad-x); }
+.section { padding-top: var(--pad-y); padding-bottom: var(--pad-y); overflow-x: clip; }
+.section + .section { border-top: 0; }
+.section-dark + .section, .section + .section-dark, .section-dark + .section-dark { border-top: 0; }
+
+/* 강조 밴드(예: 사전예약 혜택) — 웜 틴트. 브랜드색 rgba로 교체 가능 */
+.offer-pre {
+  background:
+    radial-gradient(120% 80% at 50% 0%, color-mix(in srgb, var(--signal) 8%, transparent) 0%, transparent 55%),
+    #F0DFCF;
+}
+
+/* ── 다크 섹션 ── */
+.section-dark { background: var(--ink); color: var(--paper); border-top: 0; }
+.section-dark .meta { color: rgba(255, 255, 255, .5); }
+.section-dark .section-head h2 { color: var(--paper); }
+.section-dark .section-head h2 .sig { color: var(--signal); }
+.section-dark .section-sub { color: rgba(255, 255, 255, .6); }
+
+/* ── 섹션 헤드 ── */
+.section-head { display: flex; flex-direction: column; gap: 1rem; margin-bottom: clamp(2.5rem, 6vh, 4rem); align-items: center; text-align: center; max-width: 820px; margin-inline: auto; }
+.section-head h2 { font-family: var(--font-display); font-weight: 700; font-size: clamp(2rem, 4.4vw, 3.1rem); line-height: 1.28; letter-spacing: -.025em; text-wrap: balance; }
+.section-head h2 .sig { color: var(--signal); }
+.section-head .meta { display: inline-flex; align-items: center; gap: .55rem; white-space: nowrap; }
+.section-head .meta::before { content: ""; width: 18px; height: 2px; background: var(--signal); display: inline-block; flex: none; }
+.section-sub { font-size: clamp(1rem, 1.5vw, 1.2rem); color: var(--mute); margin-top: .25rem; line-height: 1.6; }
+
+/* ── 메타 라벨 ── */
+.meta { font-family: var(--font-body); font-size: 13.5px; letter-spacing: .06em; color: var(--mute); font-weight: 600; }
+.meta .pip { display: inline-block; width: 8px; height: 8px; background: var(--signal); margin-right: 8px; vertical-align: middle; }
+
+/* ── 버튼 ── */
+.btn { display: inline-flex; align-items: center; gap: .5rem; font-family: var(--font-body); font-weight: 600; font-size: 1rem; padding: .95rem 1.6rem; border: 1.5px solid var(--ink); text-decoration: none; min-height: 44px; transition: transform .15s var(--ease), background .15s var(--ease), box-shadow .15s var(--ease); cursor: pointer; background: transparent; border-radius: var(--radius-sm); }
+.btn-primary { background: var(--signal); border-color: var(--signal); color: #fff; }
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 4px 12px color-mix(in srgb, var(--signal) 25%, transparent); }
+.btn-primary:disabled { opacity: .6; cursor: not-allowed; transform: none; box-shadow: none; }
+.btn-secondary { background: transparent; color: var(--ink); }
+.btn-secondary:hover { background: var(--ink); color: #fff; }
+.btn-secondary-dark { display: inline-flex; align-items: center; gap: .5rem; font-family: var(--font-body); font-weight: 600; font-size: 1rem; padding: .95rem 1.6rem; border: 1.5px solid #fff; text-decoration: none; color: #fff; background: transparent; min-height: 44px; transition: transform .15s var(--ease), background .15s var(--ease), color .15s var(--ease); cursor: pointer; border-radius: var(--radius-sm); }
+.btn-secondary-dark:hover { background: #fff; color: var(--ink); }
+.btn-lg { font-size: 1.15rem; padding: 1.1rem 2.2rem; }
+.section-cta { margin-top: clamp(1.5rem, 3vh, 2.5rem); display: flex; justify-content: center; }
+
+/* ── ARTIFACT 카드(데이터/데모 표시용) ── */
+.artifact { position: relative; border: 1px solid var(--rule); border-radius: var(--radius); background: #fff; padding: clamp(1.2rem, 2.5vw, 1.6rem); box-shadow: 0 2px 8px rgba(0, 0, 0, .06); display: flex; flex-direction: column; gap: .7rem; --artifact-bg: #fff; }
+.artifact::before { content: attr(data-label); position: absolute; top: 0; left: 1.2rem; transform: translateY(-50%); background: var(--artifact-bg); padding: 0 .6rem; font-family: var(--font-body); font-size: 11px; letter-spacing: .12em; color: var(--signal); font-weight: 600; }
+.artifact .row { display: flex; justify-content: space-between; font-size: .95rem; }
+.artifact .row .k { color: var(--mute); }
+.artifact .row .v { color: var(--ink); font-weight: 600; }
+.artifact .row .v.sig { color: var(--signal); }
+.artifact-dark { background: rgba(255, 255, 255, .06); border-color: rgba(255, 255, 255, .15); --artifact-bg: var(--ink); }
+.artifact-dark .row .k { color: rgba(255, 255, 255, .6); }
+.artifact-dark .row .v { color: var(--paper); }
+.artifact-dark .row .v.sig { color: var(--signal); }
+
+/* ── REVEAL 스크롤 등장 (RevealOnScroll.tsx의 IntersectionObserver가 .in 토글) ── */
+.reveal { opacity: 0; transform: translateY(12px); transition: opacity var(--dur) var(--ease), transform var(--dur) var(--ease); }
+.reveal.in { opacity: 1; transform: none; }
+/* stagger: 컨테이너는 페이드 안 하고 자식 카드가 순차 등장 */
+.reveal-stagger.reveal { opacity: 1; transform: none; transition: none; }
+.reveal-stagger > * { opacity: 0; }
+@keyframes staggerIn { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+.reveal-stagger.in > * { opacity: 1; animation: staggerIn .5s var(--ease) backwards; }
+.reveal-stagger.in > *:nth-child(1) { animation-delay: 0s; }
+.reveal-stagger.in > *:nth-child(2) { animation-delay: .08s; }
+.reveal-stagger.in > *:nth-child(3) { animation-delay: .16s; }
+.reveal-stagger.in > *:nth-child(4) { animation-delay: .24s; }
+.reveal-stagger.in > *:nth-child(5) { animation-delay: .32s; }
+
+/* ── 네비 (브랜드 로고만 교체) ── */
+.nav { position: sticky; top: 0; z-index: 100; background: var(--nav-dark); color: var(--nav-ink); }
+.nav-inner { display: flex; align-items: center; justify-content: space-between; padding-block: .7rem; gap: 1rem; }
+.nav-logo { font-family: var(--font-body); font-size: 17px; letter-spacing: .02em; text-decoration: none; color: var(--nav-ink); font-weight: 600; display: flex; align-items: center; gap: .5em; }
+.nav-logo span { color: var(--signal); }
+.nav-actions { display: flex; align-items: center; gap: .8rem; flex-wrap: nowrap; }
+.nav-login { font-family: var(--font-body); font-size: .78rem; letter-spacing: .04em; color: var(--nav-ink); background: transparent; border: 1px solid rgba(255, 255, 255, .35); padding: .4rem .9rem; min-height: 44px; border-radius: var(--radius-sm); text-decoration: none; cursor: pointer; font-weight: 500; display: inline-flex; align-items: center; transition: background .15s var(--ease), border-color .15s var(--ease); }
+.nav-login:hover { background: var(--nav-ink); color: var(--nav-dark); border-color: var(--nav-ink); }
+.nav .nav-cta { font-size: .85rem; padding: .5rem 1rem; min-height: 44px; }
+
+/* ── 접근성: 모션 최소화 ── */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .reveal { opacity: 1; transform: none; transition: none; }
+  .reveal-stagger > * { opacity: 1; }
+  .reveal-stagger.in > * { animation: none; }
+}
+
+/* ── 반응형: 표준 BP (섹션별 그리드 1단화는 각 섹션 CSS에서) ── */
+@media (max-width: 1023px) { /* 태블릿: 2-3단 그리드 → 1-2단, sticky 해제 권장 */ }
+@media (max-width: 768px)  { /* 모바일: 그리드 1단, StickyCTA 활성, 패딩 축소 */ }
+@media (max-width: 639px)  { /* 소형: 큰 타이포 clamp 하한, nav 조정 */ }
