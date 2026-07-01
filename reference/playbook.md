@@ -56,6 +56,10 @@
 PRIMARY_CTA_HREF     = PAYMENT_ENABLED ? "/pay" : "/signup"
 POST_ONBOARDING_PATH = PAYMENT_ENABLED ? "/pay" : "/preorder"
 ```
+> ⚠️ **정식 오픈 단계에선 이 불리언을 "모듈 상수"로 두지 말 것** — 정적 렌더에서 빌드 시점 값으로 굳어
+> 날짜 자동 오픈·env 변경이 재배포 없이는 반영 안 된다. 예약 오픈이 정해졌으면 **요청시점 평가 함수**로 승격:
+> `isPaymentEnabled()` + `PAYMENT_OPEN_AT`(ISO KST 날짜 게이팅), `NEXT_PUBLIC_PAYMENT_ENABLED=true`는 수동 오버라이드.
+> 상세·전환 절차 = `setup/toss-setup.md` 6번(PG 심사 통과 후 정식 전환).
 
 ---
 
@@ -449,7 +453,7 @@ POST_ONBOARDING_PATH = PAYMENT_ENABLED ? "/pay" : "/preorder"
 
 - [ ] 프로덕션 env: Cloudflare `vars`(public) + `wrangler secret put`(secret) / Vercel env.
 - [ ] OAuth redirect URI를 프로덕션 도메인으로 등록(구글·카카오·네이버 콘솔). `AUTH_URL`/`NEXT_PUBLIC_SITE_URL` 일치.
-- [ ] Toss: 실키 전환(PG 심사 통과 후). `PAYMENT_ENABLED`는 심사 결과에 맞춰 토글. **웹훅 URL 등록**(P6).
+- [ ] **Toss PG 심사 통과 → 정식 전환**(실전 체크리스트 = `setup/toss-setup.md` 6번): ⓐ 실키 교체(client/secret)·웹훅 실도메인 등록, ⓑ 결제 활성화를 **빌드상수 → 요청시점 `isPaymentEnabled()`+`PAYMENT_OPEN_AT`(날짜 게이팅)**으로(정적 렌더에 굳는 함정 회피), ⓒ **심사용 백도어 제거**(`toss-review` provider·`@review.*` 자동신청·심사 로그인 UI·관련 env), ⓓ 위젯 `variantKey` 필수, ⓔ 실거래 1건 스모크.
 - [ ] Resend 도메인 인증(SPF/DKIM/DMARC), 발신 주소 확인.
 - [ ] 정책 페이지(terms/privacy/refund)·사업자정보(Footer) 실제값, OG 이미지·메타데이터.
 - [ ] GTM 컨테이너 게시.

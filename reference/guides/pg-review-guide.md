@@ -106,8 +106,8 @@ if (!app && session.user.email?.endsWith("@review.local")) {
   app = await createPendingApplication(userId); // status: 'pending'
 }
 ```
-⚠️ 심사 통과 후에도 이 provider는 **남겨두되 계정·도메인을 엄격히 제한**(누구나 결제 우회 금지).
-비밀번호 해시는 env/secret으로, 평문/하드코딩 금지.
+⚠️ 심사 **진행 중**에는 계정·도메인을 엄격히 제한(누구나 결제 우회 금지), 비밀번호 해시는 env/secret으로(평문/하드코딩 금지).
+심사가 **완전히 종료되면 이 백도어는 제거**한다(방치 시 무단 로그인·중복 신청행 누적) — 제거 항목은 `setup/toss-setup.md` 6-C.
 
 ---
 
@@ -116,10 +116,11 @@ if (!app && session.user.email?.endsWith("@review.local")) {
 - 일반 방문자: CTA → `/signup` → 온보딩 → `/preorder`(설문) → `/preorder/done`. **결제 없음.**
 - 사전예약자는 마케팅 동의 시 `email_sends`로 일괄 안내(오픈 시 결제 링크).
 - 심사관만 §3 계정으로 `/pay` 도달 가능(일반 CTA로는 노출 안 됨).
-- 통과되면:
-  1. 토스 **실 키로 교체**(`TOSS_CLIENT_KEY` 공개키 / `TOSS_SECRET_KEY` 서버 시크릿).
-  2. **웹훅 URL 등록**(`/api/toss/webhook`) — success 리다이렉트 누락 보완(결제 신뢰성).
-  3. `PAYMENT_ENABLED=true`로 토글 → CTA가 `/pay`로 전환.
+- 통과되면 **정식 전환**(전체 절차 = `setup/toss-setup.md` 6번):
+  1. 토스 **실 키로 교체**(`TOSS_CLIENT_KEY` 공개키 / `TOSS_SECRET_KEY` 서버 시크릿) + **웹훅 실도메인 등록**.
+  2. 결제 활성화를 **요청시점 함수**(`isPaymentEnabled()`+`PAYMENT_OPEN_AT` 날짜 게이팅)로 → 정적 렌더에 굳는 함정 회피.
+  3. **심사용 백도어 제거**(§3 provider·`@review.*` 자동신청·심사 로그인 UI·관련 env).
+  4. 위젯 `variantKey` 확인 + 실거래 1건 스모크.
 
 ⚠️ **키 혼동 금지**: `TOSS_CLIENT_KEY`는 브라우저 노출(공개, 위젯 초기화용), `TOSS_SECRET_KEY`는
 서버 승인(`/v1/payments/confirm`, `Authorization: Basic base64(SECRET:)`)에서만. 시크릿이
