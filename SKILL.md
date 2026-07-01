@@ -4,7 +4,7 @@ description: |
   강의(온라인/오프라인) 사전예약·결제 랜딩페이지를 기획(PRD)부터 QA·배포까지 14단계로
   순차 빌드하는 풀스택 플레이북. 소셜로그인(Google·Kakao·Naver)·토스결제·SMS인증·자동메일·
   GA4/GTM 트래킹·어드민·SEO/성능까지 포함. granter-landing 역설계 + 프로덕션 보강.
-  **사용자(조코딩AX) 한국어 강의 랜딩 전용.** 드롭인 섹션(mac-open-motion·instructor-spotlight)과
+  **한국어 강의·교육 상품 랜딩용.** 드롭인 섹션(mac-open-motion·instructor-spotlight)과
   브랜드 중립 디자인 스켈레톤 번들.
   Use when asked to "강의 랜딩 처음부터 만들어", "사전예약/결제 페이지 풀스택", "랜딩 빌드 순서대로",
   "결제·로그인·메일·GA까지 다 있는 강의 페이지", "lecture landing playbook".
@@ -107,7 +107,7 @@ P0 → P1 → P2 → P4 DB → P9 인증 → P3 섹션 → P5 폼 → P6 결제 
 ## 사용자 컨벤션 (반드시 따를 것)
 - 패키지 매니저 **npm**(`cd apps/web && npm run dev`).
 - `cohort`·가격·카피는 **상품마다 교체**(하드코딩 금지).
-- 완성 섹션은 `~/Desktop/dev/ld_archive/`에 모으고, 섹션 완성 시 저장 여부를 먼저 묻는다.
+- 재사용할 섹션은 별도 아카이브 폴더에 모아 둔다(드롭인 자산은 이 스킬 `assets/` 참조). 섹션 완성 시 저장 여부를 먼저 묻는다.
 
 ## 완료 기준
 `features-checklist.md`의 P0~P13 전 항목 체크 + P13 런치 게이트 통과.

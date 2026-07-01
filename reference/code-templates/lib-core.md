@@ -24,7 +24,7 @@ flow and a payment flow. It is a branch flag, not a secret — that is why
 
 ```ts
 export const SITE = {
-  brand: "__BRAND__", // e.g. "그랜터 × 조코딩AX 파트너스"
+  brand: "__BRAND__", // e.g. "브랜드 × 파트너"
   cohort: "__COHORT__", // e.g. "2026 BETA"
 } as const;
 

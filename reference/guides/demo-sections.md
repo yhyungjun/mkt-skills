@@ -1,6 +1,6 @@
 # 제품 UI 데모 섹션 (정적 목업으로 "실제 쓰는 모습" 보여주기)
 
-> **출처**: axacademy-landing `Solution` 섹션 — `components/demo/`의 3탭 데모
+> **출처**: 강의 랜딩 사례 `Solution` 섹션 — `components/demo/`의 3탭 데모
 > (Claude Desktop UI · MCP 커넥터 · company-bot). 강의/제품이 **무엇을 하게 해주는지**를
 > 말이 아니라 **화면**으로 보여주는 설득 장치(playbook의 mac-open-motion iframe 데모와 형제).
 > **왜**: "할 수 있다"는 카피 100줄보다, 결과물 화면 1개가 예비구매자의 "내가 이걸 만들 수 있겠다"를 만든다.

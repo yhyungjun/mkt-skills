@@ -1,6 +1,6 @@
 # 운영자용 Slack 신청 알림 (Incoming Webhook · Block Kit)
 
-> **출처**: axacademy-landing (`lib/notify.ts`). 신규 신청이 들어오면 운영 Slack 채널로 즉시 알림.
+> **출처**: 강의 랜딩 사례 (`lib/notify.ts`). 신규 신청이 들어오면 운영 Slack 채널로 즉시 알림.
 > **왜**: 어드민을 안 봐도 신청을 실시간 인지 → 빠른 입금 확인·응대. 이메일 자동발송(고객용)과 별개의 **운영자용** 채널.
 > **핵심**: ① Webhook URL은 **시크릿으로만** 주입(코드/리포 금지). ② 미설정 시 **스텁**(스킵)으로 빌드·로컬 무해.
 > ③ **Incoming Webhook은 `actions`(대화형 버튼) 사용 시 경고** → 링크는 `actions` 대신 **mrkdwn 링크**로(기능 동일).

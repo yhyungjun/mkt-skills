@@ -8,7 +8,7 @@
 >   `/api/counter`는 얼리버드 카운트(approved 수). **신규** `/api/toss/webhook`은 결제상태 재동기화·멱등 보강.
 >
 > ## 전역 교체지점 (한 번에 grep)
-> - `{{BRAND}}` — 상호/브랜드명 (예: "그랜터 × 조코딩AX 파트너스")
+> - `{{BRAND}}` — 상호/브랜드명 (예: "브랜드 × 파트너")
 > - `{{COHORT}}` — 기수 코드 (예: "beta-2026")
 > - `{{ORDER_NAME}}` — 결제창 상품명
 > - `{{REVIEW_EMAIL_DOMAIN}}` — PG 심사용 계정 이메일 도메인 (예: "@review.granter.local")

@@ -1,6 +1,6 @@
 # 섹션 도달 퍼널 트래킹 (sec_NN — 스크롤 이탈 분석)
 
-> **출처**: axacademy-landing (`lib/sections.ts` + `components/ui/SectionFunnelTracker.tsx`).
+> **출처**: 강의 랜딩 사례 (`lib/sections.ts` + `components/ui/SectionFunnelTracker.tsx`).
 > **왜**: 기본 5이벤트(view_item·begin_checkout…)는 "어느 섹션에서 이탈했는가"를 못 본다.
 > 섹션마다 처음 뷰포트 진입 시 `sec_NN_*` 이벤트를 쏘면 **섹션별 도달률·이탈 지점**을 GA4·어드민 퍼널로 본다.
 > **핵심**: ① 순서 = `page.tsx` 렌더 순서와 **반드시 일치**(단일 출처 `lib/sections.ts`). ② DOM 추가 없이

@@ -1,7 +1,7 @@
 # 강의 랜딩페이지 풀스택 빌드 플레이북
 
 > **목적**: 강의(온라인/오프라인) 사전예약·결제 랜딩을 **시간낭비 없이 순차로** 다시 만들기 위한 마스터 가이드.
-> granter-landing(조코딩AX 셀러OS) 실제 구현을 역설계해 정리. 기획 → 셋업 → 디자인 → 섹션 → DB →
+> granter-landing(강의 랜딩) 실제 구현을 역설계해 정리. 기획 → 셋업 → 디자인 → 섹션 → DB →
 > 폼 → 결제 → 메일 → 트래킹 → 인증 → 어드민 → 마감 → 배포 → QA까지 전 영역.
 >
 > **사용법**: Phase 0부터 순서대로. 각 Phase는 앞 Phase 산출물에 의존하므로 순서를 지키면 막힘이 없다.
@@ -107,7 +107,7 @@ POST_ONBOARDING_PATH = PAYMENT_ENABLED ? "/pay" : "/preorder"
 > (P4·P9·P6·P7 추가, CTA를 `/pay`로). 모델2가 모델1의 부분집합이라 버릴 코드가 적다.
 
 > 🆕 **가격 변형은 결제 모델과 직교**: 어느 모델이든 같은 랜딩을 가격만 다르게(공개/제휴) 뿌리려면
-> `code-templates/price-variant.md`를 얹는다(경로 분기·서버 가격매핑). 모델2에서 실전 검증됨(axacademy).
+> `code-templates/price-variant.md`를 얹는다(경로 분기·서버 가격매핑). 모델2에서 실전 검증됨(실제 빌드).
 
 ---
 
@@ -176,7 +176,7 @@ POST_ONBOARDING_PATH = PAYMENT_ENABLED ? "/pay" : "/preorder"
 - [ ] **`design-phase-prompt.md`의 마스터 프롬프트 실행** → 팔레트·폰트·무드 확정.
 - [ ] **디자인 스킬 연계(선택)**: `ui-ux-pro-max`(팔레트·폰트페어링), `design-shotgun`/`design-html`(시안 다중),
       `design-review`(비평). 결과 색·폰트를 토큰 값으로 환원.
-- [ ] **재사용 자산 검토**: `ld_archive/`(instructor-spotlight·mac-open-motion) "새로 만들 것 vs 가져올 것" 구분.
+- [ ] **재사용 자산 검토**: 이 스킬 `assets/`(instructor-spotlight·mac-open-motion) "새로 만들 것 vs 가져올 것" 구분.
 
 ### 2-1. 스켈레톤 복제 + 토큰 값 주입 (구조는 코드, 값만 교체)
 - [ ] **`reference/design-system-skeleton.css`를 `app/globals.css`로 복제.**
@@ -186,7 +186,7 @@ POST_ONBOARDING_PATH = PAYMENT_ENABLED ? "/pay" : "/preorder"
 - [ ] `RevealOnScroll.tsx`(IntersectionObserver, threshold 0.12 → `.in` 토글) 추가 — 스켈레톤의 `.reveal`/`.reveal-stagger`와 짝.
 - [ ] 대비/접근성 검증: 강조색 WCAG AA(4.5:1), 다크섹션 가독성, 버튼 hover/disabled.
 
-⏱️ **재사용 자산(이미 보유)**: `ld_archive/instructor-spotlight`(글로우 인물), `ld_archive/mac-open-motion`(핀 스크럽+맥북).
+⏱️ **재사용 자산(스킬 번들)**: `assets/instructor-spotlight`(글로우 인물), `assets/mac-open-motion`(핀 스크럽+맥북).
 두 폴더 다 "🤖 적용 지침" 포함 → 그대로 투입.
 
 ---
@@ -228,12 +228,12 @@ POST_ONBOARDING_PATH = PAYMENT_ENABLED ? "/pay" : "/preorder"
 ⚠️ **함정**: CTA는 전부 **Phase 8의 `CheckoutCTA`/`Cta` 래퍼**로 만들어 `begin_checkout` 자동 발화. FloatingBar의
 잔여석 카운터는 **결제 모델에 따라 의존처가 다르다**:
 - 모델1(PG): `/api/counter`(결제 approved 수, **Phase 6**)
-- 모델2(계좌이체): `/api/applications` GET(confirmed 수, **Phase 4·5**) ← axacademy 실제
+- 모델2(계좌이체): `/api/applications` GET(confirmed 수, **Phase 4·5**) ← 실제 사례
 - 모델3(외부): 카운터 없음(수동/생략)
 → 섹션은 먼저 만들고, 카운터·전환 트래킹은 해당 모델의 Phase에서 배선. **단, 랜딩측 트래킹(`view_item`·섹션 퍼널)은 폼/결제와 무관 → Phase 3 직후 바로 켤 수 있다**(아래 P3.5·Phase 8 "랜딩 이벤트" 참조).
 
 ### 🔁 3-X. 콘텐츠 반복 루프 (랜딩 작업의 실제 본체 — 단발 아님)
-> **실측(axacademy git): 전체 18커밋 중 절반 이상이 섹션·카피·디자인 반복**이었고 전 기간에 퍼져 있었다.
+> **실측(실제 빌드 git): 전체 18커밋 중 절반 이상이 섹션·카피·디자인 반복**이었고 전 기간에 퍼져 있었다.
 > P3는 "한 번 짓고 끝"이 아니라 **초안 → 리뷰 → 수정**을 도는 루프다. 이 루프를 1급 단계로 다룬다.
 
 - [ ] **콘텐츠/데이터 분리**: 카피·후기·커리큘럼·FAQ 등 긴 콘텐츠는 `lib/content.ts`·`*.data.ts`로 분리
@@ -241,7 +241,7 @@ POST_ONBOARDING_PATH = PAYMENT_ENABLED ? "/pay" : "/preorder"
 - [ ] **루프 1회 = 초안 배치 → `design-review`/`browse`로 실화면 확인 → 카피·간격·위계 수정**. 한 섹션씩 수렴시킨다.
 - [ ] **설득 아크 점검**: `guides/section-narrative.md`(순서=구매심리)·`guides/copywriting-guide.md`(섹션별 설득구조)로
       "이 섹션이 예비구매자에게 무슨 일을 하는가"를 매 루프 확인. 막연한 미화 카피 금지(검증 가능한 사실 우선).
-- [ ] **완성 섹션 아카이브**: 재사용 가치 있는 섹션은 `~/Desktop/dev/ld_archive/`에 저장(섹션 완성 시 저장 여부 먼저 질문).
+- [ ] **완성 섹션 아카이브**: 재사용 가치 있는 섹션은 별도 아카이브 폴더에 저장(섹션 완성 시 저장 여부 먼저 질문).
 
 ### 🚀 3.5 — 프리뷰 배포 체크포인트 (Track B "조기 배포"의 실행 지점)
 > Track B의 명분이 "랜딩 먼저 → 조기 배포·공유"인데 정작 배포는 P12뿐 → **여기서 한 번 띄운다.**
@@ -526,7 +526,7 @@ P0 → P1 → P2 → P3 섹션(🔁콘텐츠루프) → P3.5 프리뷰배포+8A 
 - **P6 결제·P7 메일은 선택**: 계좌이체면 P6 생략, 신청확인만 필요하면 P7 일부. 어드민 인증(P9)은 Google role만.
 - **왜 P3를 앞으로**: 랜딩 섹션은 P2(디자인 토대)에만 의존하고 DB/인증과 무관 → 먼저 지어 조기 배포 가능.
 - **주의(의존성은 유지)**: 신청폼(P5)은 `applications`(P4)에 의존 → 폼 빌드 전에 DB 또는 stub.
-- 실전 예: **axacademy-landing(조코딩AX 아카데미 2기)** — 계좌이체+네이티브폼+어드민. Toss·소셜로그인·SMS·`PAYMENT_ENABLED` **의도적 제외**.
+- 실전 예: **오프라인 강의 랜딩(아카데미 2기 사례)** — 계좌이체+네이티브폼+어드민. Toss·소셜로그인·SMS·`PAYMENT_ENABLED` **의도적 제외**.
   이 빌드에서 캐논에 **추가된 신규 패턴 5종**은 아래 "🆕 신규 패턴" 절 참조(가격변형·Slack알림·섹션퍼널·데모섹션·계좌이체 동선).
 
 ### Track A — 풀스택 결제 (변형: DB·인증을 섹션 앞으로)
@@ -555,7 +555,7 @@ P0 → P1 → P2 → P4 DB → P9 인증 → P3 섹션(🔁) → P3.5 프리뷰+
 **API(9)**: `/api/auth/[...nextauth]` · `/api/applications` · `/api/counter` · `/api/otp/send`
 · `/api/otp/verify` · `/api/track/open` · `/api/track/click` · `/admin/users/export.csv` · `/admin/applications/export.csv`
 
-**섹션(라이브 17, page.tsx 순서대로)**: Hero · Benefits · JocodingIntro · TrustLogos · WhyNow
+**섹션(라이브 17, page.tsx 순서대로)**: Hero · Benefits · CreatorIntro · TrustLogos · WhyNow
 · WhoIsThisFor · ProblemAware · Solution · Partners · Curriculum · TakeHome · Instructor · NonDev
 · Pricing · HowToJoin · FinalCTA · Faq
 - ※ `CaseStudies.tsx`는 파일만 있고 **page.tsx에 미렌더(휴면)** — CSS 잔재만 존재. 필요 시 부활용.
@@ -574,9 +574,9 @@ P0 → P1 → P2 → P4 DB → P9 인증 → P3 섹션(🔁) → P3.5 프리뷰+
 
 ---
 
-## 🆕 신규 패턴 (axacademy 2기 빌드에서 캐논에 추가 · 2026-06)
+## 🆕 신규 패턴 (실제 강의 빌드에서 캐논에 추가 · 2026-06)
 
-> granter 캐논을 **고치면서** 이번 빌드(axacademy-landing)에서 새로 정립한 재사용 패턴.
+> granter 캐논을 **고치면서** 이번 빌드(강의 랜딩 사례)에서 새로 정립한 재사용 패턴.
 > 각 파일은 복붙 가능한 구체 코드/판단 기준. 해당 Phase에서 같이 연다.
 
 | 패턴 | 파일 | 어느 Phase | 한 줄 |

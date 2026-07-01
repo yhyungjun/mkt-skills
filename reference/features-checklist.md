@@ -38,7 +38,7 @@
 - [ ] 공통 UI: Nav·Footer·FloatingBar·StickyCTA, examples iframe + 맥북 프레임
 - [ ] (Track A면) Nav 로그인표시 위해 P9 인증 선행
 - [ ] 🔁 **콘텐츠 반복 루프**: 콘텐츠/데이터 분리(`content.ts`·`*.data.ts`) → 초안→리뷰(`design-review`/`browse`)→수정 수렴
-- [ ] **설득 아크 점검**(`section-narrative.md`·`copywriting-guide.md`), 완성 섹션 `ld_archive/` 저장
+- [ ] **설득 아크 점검**(`section-narrative.md`·`copywriting-guide.md`), 완성 섹션 아카이브 폴더에 저장
 
 ## P3.5 — 프리뷰 배포 체크포인트 (Track B "조기 배포" 실행)
 - [ ] 프리뷰 배포(CF/Vercel preview, 백엔드 stub OK) → 실기기·이해관계자 공유 피드백 → 3-X 루프 환류
