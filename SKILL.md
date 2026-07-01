@@ -1,5 +1,5 @@
 ---
-name: vibe-landing
+name: mkt-landing
 description: |
   강의(온라인/오프라인) 사전예약·결제 랜딩페이지를 기획(PRD)부터 QA·배포까지 14단계로
   순차 빌드하는 풀스택 플레이북. 소셜로그인(Google·Kakao·Naver)·토스결제·SMS인증·자동메일·
@@ -11,7 +11,7 @@ description: |
   단순 정적 골격만 필요하면 korean-landing-bootstrap을, 결제/인증/트래킹까지 풀스택이면 이 스킬.
 ---
 
-# Vibe Landing — 강의 랜딩 풀스택 플레이북
+# Mkt Landing — 강의 랜딩 풀스택 플레이북
 
 강의 사전예약·결제 랜딩을 **기획 → 배포 → QA**까지 14단계(P0~P13)로 순차 빌드한다.
 백엔드(DB·인증·결제·메일)·트래킹·어드민·SEO/성능까지 검증된 순서로 안내한다.
