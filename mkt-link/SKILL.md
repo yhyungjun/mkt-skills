@@ -62,8 +62,11 @@ description: |
 | 고정댓글 | `pinned` |
 | 커뮤니티 본문 | `community` |
 | 카드 | `card` |
+| 채널 프로필·About·링크 | `profile` |
 
 > ⚠️ **쇼츠는 반드시 `shorts`** (롱폼 `video`와 안 섞음). 무태깅 금지.
+> **프로필/채널 링크**(특정 영상 아님)는 `--medium social --content profile`,
+> campaign은 지속형 식별자(예: `channel-profile`). 예: `jocodingax.ai/go/yp`.
 
 ### 3) 명령 실행
 ```bash
