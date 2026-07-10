@@ -2,7 +2,7 @@
 name: mkt-blog-writing
 description: |
   SEO 최적화 블로그 글을 7단계로 작성·발행하는 마케팅 블로그 스킬. 유형 선택(정보제공/자사홍보/포트폴리오/일상)
-  → Limbic 독자분석 → 키워드 → 제목 → 도입부 → 본문 → CTA → (썸네일) → 발행까지 순차 진행한다.
+  → Limbic 독자분석 → 키워드 → 제목 → 도입부 → 본문 → CTA → AI티 검토(humanize) → (썸네일) → 발행까지 순차 진행한다.
   각 단계는 reference/ 문서를 참조하며, bonda MCP(키워드·발행·추적링크)와 inblog CLI(초안·CTA·커버) 연동.
   Use when asked to "블로그 써줘", "SEO 블로그 작성", "블로그 글 만들어", "마케팅 블로그 글",
   "포트폴리오/도입사례 블로그", "/mkt-blog-writing". (조코딩AX 인블로그·네이버 발행 기본값 내장.)
@@ -365,6 +365,15 @@ CTA 본문을 확정한 뒤, **버튼 문구는 임의로 짓지 말고** 규칙
 5. 규칙 파일이 없거나 MCP 미사용 시: `reference/prompts/cta.md`의 `limbic_type` 기반으로 버튼 카피를 생성하되, 조코딩AX 도메인이면 규칙 파일 우선.
 
 > ⚠️ 카피·색상은 규칙 파일(SSOT)이 진실 원천이다. 값이 바뀌면 이 표가 아니라 `cta-config.md`를 따른다.
+
+### AI 티 검토 + 윤문 (CTA 확정 직후 · 발행 전 필수)
+
+도입부·본문·CTA가 **모두 나온 뒤**, 발행 전에 반드시 `/humanize-korean:humanize` 스킬로 **AI틱한 문구를 검토·윤문**한다. (이 검토만 따로 돌리려면 동일 로직의 `/mkt-writing-review` 스킬 사용.)
+
+1. **대상**: `intro_text` + `body_text` + `cta_text` (필요 시 `selected_title`·해시태그 포함).
+2. **호출**: `/humanize-korean:humanize` 실행 — 번역투·기계적 병렬·접속사 남발·피동 남용·리듬 균일·이모지/불릿 과다 등 AI 티 패턴 탐지·수정.
+3. **철칙**: 내용(사실·수치·고유명사·인용·인과·순서)은 **한 글자도 바꾸지 않고** 문체·리듬·표현만 손본다.
+4. **결과 반영**: before/after를 사용자에게 보여주고 확정받은 뒤, 윤문본을 `intro_text`/`body_text`/`cta_text`에 되반영하고 Step 6.5(썸네일)/Step 7(발행)로 진행한다.
 
 ---
 
