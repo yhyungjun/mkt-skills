@@ -99,6 +99,7 @@
 ## P12 — 배포 / 인프라
 - [ ] 프로덕션 env(public/secret), OAuth redirect 등록, Toss 실키+웹훅 URL
 - [ ] Resend 도메인 인증, 정책/사업자정보 실제값, GTM 게시, deploy
+- [ ] **통신판매업 신고**(⚠️ PG 승인 *후* 순서): 구매안전서비스 확인증 → 관할 구청 신고 → **신고번호를 Footer + 약관 3p 회사정보에 입력·재배포**
 
 ## P13 — QA / 런치 (품질 게이트)
 - [ ] 자동화 테스트(결제·OTP·폼·티어 단위 + Playwright E2E)

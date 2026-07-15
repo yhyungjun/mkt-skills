@@ -454,6 +454,7 @@ POST_ONBOARDING_PATH = PAYMENT_ENABLED ? "/pay" : "/preorder"
 - [ ] 프로덕션 env: Cloudflare `vars`(public) + `wrangler secret put`(secret) / Vercel env.
 - [ ] OAuth redirect URI를 프로덕션 도메인으로 등록(구글·카카오·네이버 콘솔). `AUTH_URL`/`NEXT_PUBLIC_SITE_URL` 일치.
 - [ ] **Toss PG 심사 통과 → 정식 전환**(실전 체크리스트 = `setup/toss-setup.md` 6번): ⓐ 실키 교체(client/secret)·웹훅 실도메인 등록, ⓑ 결제 활성화를 **빌드상수 → 요청시점 `isPaymentEnabled()`+`PAYMENT_OPEN_AT`(날짜 게이팅)**으로(정적 렌더에 굳는 함정 회피), ⓒ **심사용 백도어 제거**(`toss-review` provider·`@review.*` 자동신청·심사 로그인 UI·관련 env), ⓓ 위젯 `variantKey` 필수, ⓔ 실거래 1건 스모크.
+- [ ] **통신판매업 신고 → 신고번호 게시**(⚠️ 순서 고정: **PG 심사 통과 *후*** 에만 가능): ① PG사가 발급하는 **구매안전서비스 이용확인증(에스크로 확인증)** 수령 → ② 그 확인증으로 **관할 구청/시청(정부24)에 통신판매업 신고** → 신고번호 발급 → ③ **Footer + `/terms`·`/privacy`·`/refund` 회사정보 블록에 신고번호 입력 후 재배포**. 신고번호는 **PG 승인 전엔 존재하지 않으므로** 초기 PG 심사·Footer엔 **미기재로 진행**하고 발급 후 채운다(선행 PG → 후행 신고·게시). 예: `통신판매업 신고번호 제2026-서울서초-2193호`.
 - [ ] Resend 도메인 인증(SPF/DKIM/DMARC), 발신 주소 확인.
 - [ ] 정책 페이지(terms/privacy/refund)·사업자정보(Footer) 실제값, OG 이미지·메타데이터.
 - [ ] GTM 컨테이너 게시.
