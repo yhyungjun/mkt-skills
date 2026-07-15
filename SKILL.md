@@ -4,7 +4,7 @@ description: |
   강의(온라인/오프라인) 사전예약·결제 랜딩페이지를 기획(PRD)부터 QA·배포까지 14단계로
   순차 빌드하는 풀스택 플레이북. 소셜로그인(Google·Kakao·Naver)·토스결제·SMS인증·자동메일·
   GA4/GTM 트래킹·어드민·SEO/성능까지 포함. granter-landing 역설계 + 프로덕션 보강.
-  **한국어 강의·교육 상품 랜딩용.** 드롭인 섹션(mac-open-motion·instructor-spotlight)과
+  **한국어 강의·교육 상품 랜딩용.** 드롭인 섹션(mac-open-motion·instructor-spotlight·usp-value-stack)과
   브랜드 중립 디자인 스켈레톤 번들.
   Use when asked to "강의 랜딩 처음부터 만들어", "사전예약/결제 페이지 풀스택", "랜딩 빌드 순서대로",
   "결제·로그인·메일·GA까지 다 있는 강의 페이지", "lecture landing playbook".
@@ -86,6 +86,7 @@ P0 → P1 → P2 → P4 DB → P9 인증 → P3 섹션 → P5 폼 → P6 결제 
 
 **드롭인 섹션** (`assets/`)
 - `mac-open-motion/` — 커리큘럼 핀 스크럽 + 맥북 데모(🤖 적용지침). `instructor-spotlight/` — 글로우 인물 강사소개(🤖 적용지침).
+- `usp-value-stack/` — **USP/가치 총정리 그리드**("이만큼 배우고 남긴다 · 남들엔 없는 N가지" 번호 박스, 해결 직후 or 가격 직전 배치)(🤖 적용지침).
 
 > 각 Phase에서 해당 reference 파일을 열어 복붙·적용한다. 코드 템플릿은 placeholder만 교체하면 동작.
 
