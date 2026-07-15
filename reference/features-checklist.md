@@ -35,6 +35,7 @@
 ## P3 — 랜딩 섹션 (17)
 - [ ] Hero·Benefits·(Creator)Intro·TrustLogos·WhyNow·WhoIsThisFor·ProblemAware·Solution
 - [ ] Partners·Curriculum(→mac-open-motion)·TakeHome·Instructor(→instructor-spotlight)·NonDev·Pricing·HowToJoin·FinalCTA·Faq
+- [ ] (선택) **USP/가치 총정리**(→usp-value-stack): "이만큼 배우고 남긴다·남들엔 없는 N가지" — 해결 직후 or 가격 직전, TakeHome과 초점 분리
 - [ ] 공통 UI: Nav·Footer·FloatingBar·StickyCTA, examples iframe + 맥북 프레임
 - [ ] (Track A면) Nav 로그인표시 위해 P9 인증 선행
 - [ ] 🔁 **콘텐츠 반복 루프**: 콘텐츠/데이터 분리(`content.ts`·`*.data.ts`) → 초안→리뷰(`design-review`/`browse`)→수정 수렴

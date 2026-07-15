@@ -180,7 +180,7 @@ POST_ONBOARDING_PATH = PAYMENT_ENABLED ? "/pay" : "/preorder"
 - [ ] **`design-phase-prompt.md`의 마스터 프롬프트 실행** → 팔레트·폰트·무드 확정.
 - [ ] **디자인 스킬 연계(선택)**: `ui-ux-pro-max`(팔레트·폰트페어링), `design-shotgun`/`design-html`(시안 다중),
       `design-review`(비평). 결과 색·폰트를 토큰 값으로 환원.
-- [ ] **재사용 자산 검토**: 이 스킬 `assets/`(instructor-spotlight·mac-open-motion) "새로 만들 것 vs 가져올 것" 구분.
+- [ ] **재사용 자산 검토**: 이 스킬 `assets/`(instructor-spotlight·mac-open-motion·usp-value-stack) "새로 만들 것 vs 가져올 것" 구분.
 
 ### 2-1. 스켈레톤 복제 + 토큰 값 주입 (구조는 코드, 값만 교체)
 - [ ] **`reference/design-system-skeleton.css`를 `app/globals.css`로 복제.**
@@ -190,8 +190,8 @@ POST_ONBOARDING_PATH = PAYMENT_ENABLED ? "/pay" : "/preorder"
 - [ ] `RevealOnScroll.tsx`(IntersectionObserver, threshold 0.12 → `.in` 토글) 추가 — 스켈레톤의 `.reveal`/`.reveal-stagger`와 짝.
 - [ ] 대비/접근성 검증: 강조색 WCAG AA(4.5:1), 다크섹션 가독성, 버튼 hover/disabled.
 
-⏱️ **재사용 자산(스킬 번들)**: `assets/instructor-spotlight`(글로우 인물), `assets/mac-open-motion`(핀 스크럽+맥북).
-두 폴더 다 "🤖 적용 지침" 포함 → 그대로 투입.
+⏱️ **재사용 자산(스킬 번들)**: `assets/instructor-spotlight`(글로우 인물), `assets/mac-open-motion`(핀 스크럽+맥북), `assets/usp-value-stack`(USP 가치총정리 그리드).
+세 폴더 다 "🤖 적용 지침" 포함 → 그대로 투입.
 
 ---
 
@@ -202,7 +202,7 @@ POST_ONBOARDING_PATH = PAYMENT_ENABLED ? "/pay" : "/preorder"
 > ⚠️ 소셜로그인이 있는 **Track A**라면 Nav 로그인 표시를 위해 **Phase 9(인증)을 이 단계 앞으로 당긴다.**
 > 📐 **순서의 의도·예비구매자 의미는 `guides/section-narrative.md`**(설득 아크), **시각·모션 장치는 `guides/design-devices.md`** 를 먼저 읽고 배치할 것 — 순서는 임의가 아니라 구매 심리 흐름이다.
 
-검증된 섹션 순서(라이브 17개, 자기 상품에 맞게 카피만 교체):
+검증된 섹션 순서(라이브 17개 + 선택 USP, 자기 상품에 맞게 카피만 교체):
 
 | # | 섹션 | 역할 | 배경 |
 |---|---|---|---|
@@ -214,6 +214,7 @@ POST_ONBOARDING_PATH = PAYMENT_ENABLED ? "/pay" : "/preorder"
 | 6 | WhoIsThisFor | 타겟 페르소나 3 | white |
 | 7 | ProblemAware | 문제 시각화(흩어진 화면) | dark+glow |
 | 8 | Solution | 해결책 = 라이브 데모 iframe(맥북) | 크림 |
+| ＋ | **USP / 가치 총정리** (선택) | 차별점 총정리 "이만큼 배우고 남긴다 · 남들엔 없는 N가지" (→ usp-value-stack). 배치: 해결(8) 직후 or 가격(14) 직전, TakeHome(11)과 초점 분리(USP=차별점 / TakeHome=산출물) | dark |
 | 9 | Partners | 파트너 2카드 + 연결 | #FAF5EF |
 | 10 | Curriculum | 주차 커리큘럼 + 맥북 데모 (→ mac-open-motion) | white |
 | 11 | TakeHome | 졸업 후 얻는 것 3 | dark |
