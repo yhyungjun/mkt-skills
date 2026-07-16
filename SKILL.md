@@ -83,6 +83,7 @@ P0 → P1 → P2 → P4 DB → P9 인증 → P3 섹션 → P5 폼 → P6 결제 
 - `reference/design-system-skeleton.css` — **(구조)** 브랜드 중립 스캐폴드. 복제 후 토큰 값만 교체.
 - `reference/design-phase-prompt.md` — **(비주얼)** 색·폰트 결정 프롬프트.
 - `reference/gtm-events.md` — GA4 이벤트 + GTM 콘솔 설정.
+- 🆕 `design-skills/` — **(모션·디테일 폴리시)** 애니메이션·인터랙션을 장인 수준으로 끌어올리는 서드파티 번들(emilkowalski/skills, MIT). P2 비주얼·P3 섹션에서 **선택 사용**. 자세한 건 `design-skills/README.md`.
 
 **드롭인 섹션** (`assets/`)
 - `mac-open-motion/` — 커리큘럼 핀 스크럽 + 맥북 데모(🤖 적용지침). `instructor-spotlight/` — 글로우 인물 강사소개(🤖 적용지침).
@@ -93,6 +94,10 @@ P0 → P1 → P2 → P4 DB → P9 인증 → P3 섹션 → P5 폼 → P6 결제 
 ## Phase 2 디자인 원칙 (핵심)
 - **구조 = 코드 복제**: `design-system-skeleton.css`를 그대로 복제(브랜드 무관·검증됨). 변수명·공통클래스·reveal·반응형·접근성 변경 금지.
 - **비주얼 = 프롬프트**: `design-phase-prompt.md`로 매번 새로 팔레트·폰트·무드 결정 → 토큰 값만 주입.
+- **모션·디테일 = 선택 폴리시(`design-skills/`)**: 디자인/애니메이션을 수정·개선할 때 이 번들을 **선택 사용**한다.
+  판단 기준은 `design-skills/emil-design-eng/SKILL.md`(easing·duration·spring·`:active` 스케일·popover origin·성능·접근성),
+  완성 모션 점검은 `design-skills/review-animations/`, 기존 랜딩 전체 모션 감사는 `design-skills/improve-animations/`.
+  활성화돼 있으면 스킬로 호출(예: `review-animations`), 아니면 해당 `SKILL.md`를 열어 규칙만 적용해도 된다(자립형).
 - ⚠️ 라이브 granter 레포를 참조하지 말 것 — 번들 스냅샷이 단일 출처.
 
 ## 연계 스킬 (해당 Phase에서 같이 호출)
@@ -103,6 +108,7 @@ P0 → P1 → P2 → P4 DB → P9 인증 → P3 섹션 → P5 폼 → P6 결제 
 - `earlybird-tier-counter` — 얼리버드 티어 카운터(P6).
 - `gtm-funnel-tracking` — GA4 퍼널 이벤트(P8).
 - `ui-ux-pro-max`, `design-shotgun`, `design-review` — 비주얼 시안(P2).
+- `design-skills/` 번들(emil-design-eng·review-animations·improve-animations·find-animation-opportunities·animation-vocabulary·apple-design) — **모션·인터랙션 디테일 폴리시**(P2 디자인 수정·P3 섹션). 선택 사용, 자립형(경로 참조) 또는 `design-skills/install.sh`로 호출형 활성화.
 - `acceptance-criteria` — 기획 합격기준(P0). `qa`/`browse` — QA(P13).
 
 ## 사용자 컨벤션 (반드시 따를 것)

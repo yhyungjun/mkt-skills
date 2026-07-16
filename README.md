@@ -30,6 +30,7 @@ reference/code-templates/    복붙 코드(auth·payment·forms·email·tracking
 reference/guides/            판단·작문·정책 가이드(섹션 설득 아크·카피·법무·데모섹션·계좌이체 …)
 reference/setup/             외부 콘솔 설정 절차(Supabase·OAuth·Toss·Resend·Cloudflare·GTM)
 assets/                      드롭인 섹션(mac-open-motion · instructor-spotlight)
+design-skills/               모션·디테일 폴리시 번들(emilkowalski/skills, MIT) — P2/P3에서 선택 사용
 ```
 
 ## 커스터마이즈
