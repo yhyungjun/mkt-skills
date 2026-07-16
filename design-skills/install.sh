@@ -8,12 +8,12 @@ SKILLS_DIR="${HOME}/.claude/skills"
 mkdir -p "${SKILLS_DIR}"
 
 SKILLS=(
-  emil-design-eng
-  review-animations
-  improve-animations
-  find-animation-opportunities
-  animation-vocabulary
-  apple-design
+  mkt-emil-design-eng
+  mkt-review-animations
+  mkt-improve-animations
+  mkt-find-animation-opportunities
+  mkt-animation-vocabulary
+  mkt-apple-design
 )
 
 echo "번들 원본: ${BUNDLE_DIR}"
@@ -34,5 +34,5 @@ for s in "${SKILLS[@]}"; do
 done
 
 echo
-echo "완료. Claude Code에서 review-animations 등으로 호출하거나,"
+echo "완료. Claude Code에서 mkt-review-animations 등으로 호출하거나,"
 echo "design-skills/<name>/SKILL.md 를 직접 열어 규칙을 적용하세요."
