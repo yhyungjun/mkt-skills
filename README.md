@@ -14,9 +14,13 @@
 Next.js 16 App Router · React 19 · Tailwind 4 · Supabase · Auth.js v5 · Toss Payments · Resend · Cloudflare Workers · GTM→GA4.
 
 ## 설치
-Claude Code 스킬 디렉터리에 클론한다.
+Claude Code 스킬 디렉터리에 클론한다. **레포명은 `mkt-skills`지만, 스킬명 `mkt-landing`을 유지하려면 대상 폴더를 `mkt-landing`으로 지정**한다.
 ```bash
-git clone https://github.com/yhyungjun/mkt-landing.git ~/.claude/skills/mkt-landing
+git clone https://github.com/yhyungjun/mkt-skills.git ~/.claude/skills/mkt-landing
+```
+번들된 애니메이션/디자인 스킬을 호출형으로 쓰려면(선택):
+```bash
+bash ~/.claude/skills/mkt-landing/design-skills/install.sh
 ```
 이후 Claude Code에서 "강의 랜딩 처음부터 만들어" / "랜딩 빌드 순서대로" 등으로 스킬이 발동한다.
 진입점은 `SKILL.md` → 마스터 가이드는 `reference/playbook.md`.
