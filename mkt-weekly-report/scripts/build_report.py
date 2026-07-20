@@ -104,7 +104,11 @@ def main() -> None:
         s = s.replace("-", "")  # GA4=20260706 / Ads=2026-07-06 둘 다 처리
         return f"{s[4:6]}/{s[6:8]}"
 
-    def man(v): return f"{v // 10000}.{(v % 10000) // 1000}만"
+    def man(v):
+        # 만 단위 미만은 '천'으로 (예: 5,200 → 5.2천), 이상은 '만'으로 (48,000 → 4.8만)
+        if v < 10000:
+            return f"{v / 1000:.1f}천"
+        return f"{v // 10000}.{(v % 10000) // 1000}만"
 
     # ---------------- 파생 집계 ----------------
     home_sess = sum(x["sessions"] for x in G["home_daily"])
