@@ -91,6 +91,14 @@ def main() -> None:
                             "bounce": round(float(r["m"][1]) * 100, 1), "users": int(r["m"][2]),
                             "cta": ctam.get((r["d"][0], r["d"][1]), 0)} for r in sess]
 
+    # 3b. jocodingax.ai 유입경로(채널그룹)별 세션·이탈률·cta_click
+    ch = rep(HOME, ["sessionDefaultChannelGroup"], ["sessions", "bounceRate", "totalUsers"], D14, order=by_metric("sessions"), limit=30)
+    chcta = rep(HOME, ["sessionDefaultChannelGroup"], ["eventCount"], D14, filt=eq("eventName", "cta_click"), limit=30)
+    chctam = {r["d"][0]: int(r["m"][0]) for r in chcta}
+    data["home_channel"] = [{"channel": r["d"][0], "sessions": int(r["m"][0]),
+                             "bounce": round(float(r["m"][1]) * 100, 1), "users": int(r["m"][2]),
+                             "cta": chctam.get(r["d"][0], 0)} for r in ch]
+
     # 4. 해커톤 전체 UTM 분해(source/medium/campaign/content) 세션·이탈률 + cta_apply_click
     sess = rep(HACK, ["sessionSource", "sessionMedium", "sessionCampaignName", "sessionManualAdContent"],
                ["sessions", "totalUsers", "bounceRate"], D14, order=by_metric("sessions"), limit=200)

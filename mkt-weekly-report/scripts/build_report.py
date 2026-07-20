@@ -230,6 +230,16 @@ def main() -> None:
     home_src_tbl = plat_table(home_plat, "CTA클릭", home_sess)
     hack_src_tbl = plat_table(hack_plat, "프라이머이동", hack_sess)
 
+    # 홈 유입경로(채널그룹) 표 — 표준 GA4 채널 기준
+    home_ch = G.get("home_channel", [])
+    home_ch_tot = sum(r["sessions"] for r in home_ch)
+    ch_lines = ["| 유입경로(채널그룹) | 세션 | 비율 | 이탈률 | CTA클릭 |", "|---|--:|--:|--:|--:|"]
+    for r in home_ch:
+        ch_lines.append(f'| {r["channel"]} | {md(r["sessions"])} | {r["sessions"] / home_ch_tot * 100:.1f}% | {r["bounce"]:.0f}% | {md(r["cta"])} |')
+    if home_ch:
+        ch_lines.append(f'| **합계** | **{md(home_ch_tot)}** | 100% | — | **{md(sum(r["cta"] for r in home_ch))}** |')
+    home_ch_tbl = "\n".join(ch_lines) if home_ch else "_(채널그룹 데이터 없음 — collect_ga4 재실행 필요)_"
+
     utm_lines = ["| 소스(UTM) | 세션 | 사용자 | 비율 | 이탈률 | 프라이머이동 | 이동율 |", "|---|--:|--:|--:|--:|--:|--:|"]
     for r in utm_rows:
         if r["sessions"] < 15: continue
@@ -370,6 +380,10 @@ def main() -> None:
 {home_src_tbl}
 
 ![홈 소스](charts/6_homesrc.png)
+
+**jocodingax.ai 유입경로(채널그룹)** — 표준 GA4 채널 기준
+
+{home_ch_tbl}
 
 **hackathon.jocodingax.ai (해커톤 랜딩)**
 
